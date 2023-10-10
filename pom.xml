@@ -13,6 +13,7 @@
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <HOST_VALUE>localhost</HOST_VALUE>
+        <project.scm.id>github</project.scm.id>
     </properties>
 
     <repositories>
@@ -41,9 +42,8 @@
     <!--    </dependencies>-->
 
     <scm>
-        <developerConnection>
-
-        </developerConnection>
+        <developerConnection>scm:git:https://github.com/remouter/nexus.git</developerConnection>
+        <url>https://github.com/remouter/nexus</url>
     </scm>
 
     <build>
