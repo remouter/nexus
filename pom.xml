@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.example</groupId>
+    <artifactId>nexus</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <properties>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <HOST_VALUE>localhost</HOST_VALUE>
+    </properties>
+
+    <repositories>
+        <repository>
+            <id>nexus-snapshot</id>
+            <url>http://localhost:8081/repository/nexus-snapshot/</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>nexus-release</id>
+            <url>http://localhost:8081/repository/nexus-release/</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+
+    <!--    <dependencies>-->
+    <!--        <dependency>-->
+    <!--            <groupId>com.h2database</groupId>-->
+    <!--            <artifactId>h2</artifactId>-->
+    <!--            <version>1.4.200</version>-->
+    <!--        </dependency>-->
+    <!--    </dependencies>-->
+
+    <scm>
+        <developerConnection>
+
+        </developerConnection>
+    </scm>
+
+    <build>
+        <extensions>
+            <extension>
+                <groupId>io.packagecloud.maven.wagon</groupId>
+                <artifactId>maven-packagecloud-wagon</artifactId>
+                <version>0.0.6</version>
+            </extension>
+        </extensions>
+
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>3.0.1</version>
+            </plugin>
+        </plugins>
+    </build>
+
+    <profiles>
+        <profile>
+            <id>packagecloud</id>
+            <distributionManagement>
+                <snapshotRepository>
+                    <id>packagecloud.snapshot</id>
+                    <url>packagecloud+https://packagecloud.io/remouter/snapshot</url>
+                </snapshotRepository>
+                <repository>
+                    <id>packagecloud.release</id>
+                    <url>packagecloud+https://packagecloud.io/remouter/release</url>
+                </repository>
+            </distributionManagement>
+            <properties>
+                <HOST>${HOST_VALUE}</HOST>
+            </properties>
+        </profile>
+        <profile>
+            <id>nexus</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <distributionManagement>
+                <snapshotRepository>
+                    <id>nexus-snapshot</id>
+                    <url>http://localhost:8081/repository/nexus-snapshot/</url>
+                </snapshotRepository>
+                <repository>
+                    <id>nexus-release</id>
+                    <url>http://localhost:8081/repository/nexus-release/</url>
+                </repository>
+            </distributionManagement>
+            <properties>
+                <HOST>com.example</HOST>
+            </properties>
+        </profile>
+    </profiles>
+</project>
